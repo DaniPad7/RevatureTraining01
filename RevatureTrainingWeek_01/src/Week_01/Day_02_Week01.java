@@ -54,16 +54,16 @@ public static void main(String[] args) {
 	
 	public static void listFibonacci(int n) {
 		if(n == 0) {
-			System.out.println(0);
+			System.out.println("Fibonacci: " + 0);
 		}
 		if(n == 1) {
-			System.out.println(0 + " " + 1);
+			System.out.println("Fibonacci: " + 0 + " " + 1);
 		}
 		if(n > 1) {
 			int[] temp = new int[n + 1];
 			temp[0] = 0;
 			temp[1] = 1;
-			System.out.print(0 + " " + 1 + " ");
+			System.out.print("Fibonacci: " + 0 + " " + 1 + " ");
 			for (int i = 2; i < temp.length ; i++) {
 				temp[i] = temp[i - 1] + temp[i - 2];			
 				

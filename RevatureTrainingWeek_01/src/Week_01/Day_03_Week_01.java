@@ -11,6 +11,18 @@ public class Day_03_Week_01 {
 		System.out.println();
 		}
 	
+	// 2)Delete specific element from an array
+	public static void deleteElement(int n, int[] ar) {
+		for (int i = 0; i < n - 1; i++) {
+			System.out.print(ar[i] + " ");
+			
+		}
+		for (int i = n - 1; i < ar.length - 1 ; i++) {
+			ar[i] = ar[i + 1];
+			System.out.print(ar[i] + " ");
+			}
+		System.out.println();
+	}
 	
 	
 	
@@ -18,12 +30,13 @@ public class Day_03_Week_01 {
 	public static void main(String[] args) {
 		int ar[]= {12,33,11,2,344,11,12,11,22,11,11,23,11,44,11,22,11};
 		
-		arrayReverse(ar);	// 1)Print the array in reverse order
-
-	
-	
-	
+		// 1)Print the array in reverse order
+		arrayReverse(ar);	
+		
 		// 2)Delete specific element from an array
+		deleteElement(1, ar);
+
+
 		// 3)Find all the even numbers and put it in a new array and also find all odd numbers and put it in another array
 		// 4)Find the sum of all even and odd numbers seperately and print the max out of it.(max of sum of even vs odd)
 		// 5)Find the minimum and the maximum element in an array
