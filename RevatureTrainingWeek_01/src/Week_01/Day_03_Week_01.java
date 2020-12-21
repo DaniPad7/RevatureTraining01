@@ -1,5 +1,7 @@
 package Week_01;
 
+import java.util.Arrays;
+
 public class Day_03_Week_01 {
 	
 	// 1)Print the array in reverse order
@@ -21,32 +23,124 @@ public class Day_03_Week_01 {
 			ar[i] = ar[i + 1];
 			System.out.print(ar[i] + " ");
 			}
+		ar[ar.length - 1] = 0;
 		System.out.println();
 	}
 	
 	
+	// 3)Find all the even numbers and put it in a new array and also find all odd numbers and put it in another array
+	public static void evenOddArray(int[] ar) {
+		int[] arOdd = new int[ar.length];
+		int[] arEven = new int[ar.length];
+		
+		for (int i = 0; i < ar.length; i++) {
+			if (ar[i] % 2 == 0) {
+				arEven[i] = ar[i];
+			}
+			else {
+				arOdd[i] = ar[i];
+			}
+		}
+		
+		System.out.println("Even Array: " + Arrays.toString(arEven)); //Import java.util.Arrays
+		System.out.println("Odd Array: " + Arrays.toString(arOdd));
+	}
+	
+	
+	// 4)Find the sum of all even and odd numbers seperately and print the max out of it.(max of sum of even vs odd)
+	public static void evenOddArrayMax(int[] ar) {
+		int[] arOdd = new int[ar.length];
+		int[] arEven = new int[ar.length];
+		int evenMax = 0;
+		int oddMax = 0;
+		
+		
+		for (int i = 0; i < ar.length; i++) {
+			if (ar[i] % 2 == 0) {
+				arEven[i] = ar[i];
+				evenMax += arEven[i];
+			}
+			else {
+				arOdd[i] = ar[i];
+				oddMax += arOdd[i];
+			}
+		}
+		if (evenMax > oddMax) {
+		
+		System.out.println("Max of Even is: " + evenMax);
+		}
+		else if (evenMax < oddMax) {
+			System.out.println("Max of Odd is: " + oddMax);
+		}
+		else {
+			System.out.println("Both have the same maximum of: " + oddMax);
+		}
+		
+	}
+	
+	// 5)Find the minimum and the maximum element in an array
+	public static void minMaxArray(int[] ar) {
+		int arMin = ar[0];
+		int arMax = 0;
+		for (int i = 0; i < ar.length; i++) {
+			if (ar[i] > arMax) {
+				arMax = ar[i]; 
+			}
+			else if (ar[i] < arMin) {
+				arMin = ar[i];
+			}
+			
+		}
+		System.out.println("Array minimum is: " + arMin);
+		System.out.println("Array maximum is: " + arMax);
+	}
+	
+	
+	
+	// 6)Find all Palindrome numbers in an array 
+	public static void palindromeInArray(int[] ar) {
+		int[] palindromeAr = new int[ar.length];
+		System.out.print("Palindromes in Array: ");
+		for (int i = 0; i < palindromeAr.length; i++) {
+			String s_1 = ar[i] + "";
+			StringBuffer sb_n = new StringBuffer(s_1);
+			if(sb_n.reverse().toString().equalsIgnoreCase(s_1) && ar[i] > -1) {
+				System.out.print(ar[i] + " ");
+				
+			}
+		}
+		System.out.println();
+	}
 	
 	
 	public static void main(String[] args) {
 		int ar[]= {12,33,11,2,344,11,12,11,22,11,11,23,11,44,11,22,11};
+		int[] ar1 = {9,8,7,6,5,4,3,2,1};
 		
 		// 1)Print the array in reverse order
-		arrayReverse(ar);	
+		arrayReverse(ar1);	
 		
 		// 2)Delete specific element from an array
-		deleteElement(1, ar);
-
+		deleteElement(1, ar1);
 
 		// 3)Find all the even numbers and put it in a new array and also find all odd numbers and put it in another array
+		evenOddArray(ar1);
+		
+		
 		// 4)Find the sum of all even and odd numbers seperately and print the max out of it.(max of sum of even vs odd)
+		evenOddArrayMax(ar1);
+		
+		
 		// 5)Find the minimum and the maximum element in an array
+		minMaxArray(ar1);
+		
 		// 6)Find all Palindrome numbers in an array 
-		 
+		palindromeInArray(ar1);
 		
 		
 
 
-	
+	/*
 		//Task - Try the same stuff with Long, Double and Float
 		Long i7 = 10L;
 		Long i8 = 10L;
@@ -207,12 +301,46 @@ public class Day_03_Week_01 {
 		Float f_22 = d_2.floatValue();
 		System.out.println("f (double to float)= " + f_22);
 		
+		*/
+		
 		//Task  - Print all palindromes between 1000 and 9999 with the above style stringbufferstringbuilderdemo\Palindrome.java
+		System.out.print("Palindromes between 1000 and 9999 are: ");
+		for (int i = 1000; i < 10000; i++) {
+		String s = i + "";
+		if(new StringBuffer(s).reverse().toString().equals(s)) {
+			System.out.print(i + " ");
+		}
+		}
+		
 		//Task - Convert every word's last character to uppercase and print back the sentence. stringbufferstringbuilder\Titlecase.java
+		String st = "hello hi good evening how are you doing today";
+		StringBuilder sb=new StringBuilder();
+		String arR[]=st.split(" ");
+		for (int i = 0; i < arR.length; i++) {
+			sb.append(arR[i].substring(0, arR[i].length() - 1)).append(Character.toUpperCase(arR[i].charAt(arR[i].length() - 1))).append(" "); //read methods and ordered form left to right
+		}
+		System.out.println("\n"+ sb.toString().trim());
+		
+		
 		//task1 - write a program to validate an SSN number using regex stringdemo\regex_pack\MobileNuumbervalidation.java
+		String ssn = "123-45-6789";
+		if (ssn.matches("[0-9]{3}-[0-9]{2}-[0-9]{4}")) {
+			System.out.println("Validated SSN");
+		}
+		else {
+			System.out.println("Unvalidated SSN");
+		}
+		
+		
+		
 		//task2 - write a program to validate DL stringdemo.regex_pack\
-		//regexdemo1.java paraphrases regex package
-	
+		String dlnAR = "123456789";
+		if (dlnAR.matches("[0-9]{9}")) {
+			System.out.println("Validated DLN");
+		}
+		else {
+			System.out.println("Unvalidated DLN");
+		}
 	
 	}
 
