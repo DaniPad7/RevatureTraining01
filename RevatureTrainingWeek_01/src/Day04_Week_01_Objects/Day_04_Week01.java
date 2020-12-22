@@ -3,6 +3,8 @@ package Day04_Week_01_Objects;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Day_04_Week01 {
 	public static void main(String[] args) {
@@ -77,18 +79,27 @@ public class Day_04_Week01 {
 		System.out.println(ar1);
 		
 		//Place odds and evens in their own arrays.
-		//List<Integer> arEven = Collections.addAll(ar1, 2);
-		List<Integer> arOdd = ar1.subList(0, ar1.lastIndexOf(ar1.toString()));
-		System.out.println(ar1);
+		List<Integer> arEven = new  LinkedList<>();
+		List<Integer> arOdd = new LinkedList<>();
+		//arEven =  ar1.listIterator().next().divideUnsigned(ar1.indexOf(), 2);
 		
+			
+		
+		
+		ar1.listIterator().next();
 		//Find the sum of all even and odd numbers seperately and print the max out of it.(max of sum of even vs odd)
+		int ar1Max = Integer.MAX_VALUE;
+		System.out.println(ar1Max);
 		
 		//Find the minimum and the maximum element in an array
+	//	Integer arEvenMax = arEven.listIterator().next().divideUnsigned(dividend, divisor);
+		System.out.println(ar1Max);
 		
 		//Find all Palindrome numbers in an array 
 		
 		
 	}
 	//Task3)Explore Queue Interface and try implementing Queue using LinkedList and PriorityQueue, and get the difference between them java_examples\list_demos\src\eg1\Demo1.java
-
+Queue <Integer> ar4 = new LinkedList<Integer>();
+PriorityQueue <Float> ar5 = new PriorityQueue<Float>();
 }
