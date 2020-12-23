@@ -11,11 +11,13 @@ public class Employee extends Person {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Employee(int id, String name, String designation, double salary,Project project) {
+	public Employee(int id, String name, String designation, double salary,Project project, Address permanentAddress, Address presentAddress) {
 		super(id, name);
 		this.designation = designation;
 		this.salary = salary;
 		this.project=project;
+		this.permanentAddress = permanentAddress;
+		this.presentAddress = presentAddress;
 	}
 
 	public String getDesignation() {
@@ -37,8 +39,8 @@ public class Employee extends Person {
 
 	@Override
 	public String toString() {
-		return "Employee [designation=" + designation + ", salary=" + salary + ", project=" + project + ", toString()="
-				+ super.toString() + "]";
+		return "Employee [designation=" + designation + ", salary=" + salary + ", project=" + project
+				+ ", permanentAddress=" + permanentAddress + ", presentAddress=" + presentAddress + "]";
 	}
 
 	public Project getProject() {
@@ -47,6 +49,23 @@ public class Employee extends Person {
 
 	public void setProject(Project project) {
 		this.project = project;
+	}
+	
+	
+	public Address getPermanentAddress() {
+		return permanentAddress;
+	}
+
+	public void setPermanentAddress(Address permanentAddress) {
+		this.permanentAddress = permanentAddress;
+	}
+
+	public Address getPresentAddress() {
+		return presentAddress;
+	}
+
+	public void setPresentAddress(Address presentAddress) {
+		this.presentAddress = presentAddress;
 	}
 
 }

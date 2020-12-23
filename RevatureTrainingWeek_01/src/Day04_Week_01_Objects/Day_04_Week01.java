@@ -34,20 +34,26 @@ public class Day_04_Week01 {
 		
 		//Complete Address, Player and Team \java_examples\inheritance_demo\src\eg2
 		//Address later
-		/*Project p1=new Project(9000, "Abc Corp", "Abc Corp Some Client");
-		Employee e1=new  Employee(100, "Sachin", "Manager", 23333.44,p1);
+		Project p1 = new Project(9000, "Abc Corp", "Abc Corp Some Client");
+		Address permanentAddress1  = new Address(718, "Parrdrive Ave", "Houston", 72473);
+		Address presentAddress1 = new Address(473,"Beachway Drive", "Miami", 47593);
+		Employee e1 = new  Employee(100, "Sachin", "Manager", 23333.44,p1, permanentAddress1, presentAddress1);
 		System.out.println("e1");
 		System.out.println(e1);
 		
-		Employee e2=new Employee(101, "Richard", "Associate", 2000.33,p1);
+		Address permanentAddress2  = new Address(5765, "Longway Ave", "Austin", 72456);
+		Address presentAddress2 = new Address(543,"Runway Drive", "New York", 67453);
+		Employee e2 = new Employee(101, "Richard", "Associate", 2000.33,p1, permanentAddress2, presentAddress2);
 		System.out.println("e2");
 		System.out.println(e2);
 		
-		Project p2=new Project(9001, "SMS", "Revature");
-		Employee e3=new Employee(102, "Tushar", "Manager", 33000.33, p2);
+		Project p2 = new Project(9001, "SMS", "Revature");
+		Address permanentAddress3  = new Address(5433, "Huneyroad Ave", "Seattle", 86455);
+		Address presentAddress3 = new Address(732,"Berryroad Drive", "San Diego", 93564);
+		Employee e3 = new Employee(102, "Tushar", "Manager", 33000.33, p2, permanentAddress3, presentAddress3);
 		System.out.println("e3");
 		System.out.println(e3);
-		*/
+		
 		
 		//Task1)Try to play around with all the methods shown above
 		List <Integer> l1 = new LinkedList<>(); //imported java.util
