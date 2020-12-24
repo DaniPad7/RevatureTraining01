@@ -34,7 +34,8 @@ public class Player extends Person{
 	}
 	@Override
 	public String toString() {
-		return "Player [rating=" + rating + ", team=" + team + "]";
+		return "Player [rating=" + rating + ", team=" + team + ", getId()=" + getId() + ", getName()=" + getName()
+				+ "]";
 	}
 
 	

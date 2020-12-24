@@ -33,7 +33,6 @@ public class Day_04_Week01 {
 	
 		
 		//Complete Address, Player and Team \java_examples\inheritance_demo\src\eg2
-		//Address later
 		Project p1 = new Project(9000, "Abc Corp", "Abc Corp Some Client");
 		Address permanentAddress1  = new Address(718, "Parrdrive Ave", "Houston", 72473);
 		Address presentAddress1 = new Address(473,"Beachway Drive", "Miami", 47593);
@@ -53,6 +52,19 @@ public class Day_04_Week01 {
 		Employee e3 = new Employee(102, "Tushar", "Manager", 33000.33, p2, permanentAddress3, presentAddress3);
 		System.out.println("e3");
 		System.out.println(e3);
+		
+		
+		Team t1 = new Team(101,"Bullhats", "Starko Junior");
+		Player pla1 = new Player(67, "Mualny Smith" , 56.75, t1);
+		Player pla2 = new Player(45, "Gael Huting", 76.34, t1);
+		System.out.println("pla1 " + pla1);
+		System.out.println("pla2 " + pla2);
+		
+		Team t2 = new Team(143, "Cannonriders", "Witty King");
+		Player pla3 = new Player(34, "John Mulaney", 65.34, t2);
+		Player pla4 = new Player(86, "Fabio Lucio", 34.65, t2);
+		System.out.println("pla3 " + pla3);
+		System.out.println("pla4 " + pla4);
 		
 		
 		//Task1)Try to play around with all the methods shown above
