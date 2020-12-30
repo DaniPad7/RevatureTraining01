@@ -2,6 +2,7 @@ package com.app.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -47,8 +48,35 @@ public class OwnerSearchDAOImpl implements OwnerSearchDAO {
 
 	@Override
 	public Owner getOwnerByContact(String ownerPhone) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		Owner owner = null;
+		try (Connection connection = PostgresqlConnection.getConnection()) {
+			String sql = "SELECT owner_id, owner_name, owner_age, owner_gender, owner_address, owner_email, owner_phone, owner_dob, dog_id, product_id FROM test01.dog_owner WHERE owner_phone = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, ownerPhone);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				owner = new Owner();
+				owner.setOwnerId(resultSet.getInt("owner_id"));
+				owner.setOwnerName(resultSet.getString("owner_name"));
+				owner.setOwnerAge(resultSet.getInt("owner_age"));
+				owner.setOwnerGender(resultSet.getString("owner_gender"));;
+				owner.setOwnerAddress(resultSet.getString("owner_address"));
+				owner.setOwnerEmail(resultSet.getString("owner_email"));
+				owner.setOwnerPhone(resultSet.getString("owner_phone"));
+				owner.setOwnerDob(resultSet.getDate("owner_dob"));
+				owner.setDogId(resultSet.getInt("dog_id"));
+				owner.setProductId(resultSet.getInt("product_id"));
+			}
+			else {
+				throw new BusinessException("No owners found with the Contact Number: " + ownerPhone);
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			System.out.println(e);
+			throw new BusinessException("Internal error occured contact SYSADMIN");
+		}
+		
+		
+		return owner;
 	}
 
 	@Override
@@ -120,8 +148,36 @@ public class OwnerSearchDAOImpl implements OwnerSearchDAO {
 
 	@Override
 	public List<Owner> getOwnersByGender(String ownerGender) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Owner> ownersList= new ArrayList<>();
+		try (Connection connection = PostgresqlConnection.getConnection()) {
+			String sql = "SELECT owner_id, owner_name, owner_age, owner_gender, owner_address, owner_email, owner_phone, owner_dob, dog_id, product_id FROM test01.dog_owner WHERE owner_gender = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, ownerGender);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				Owner owner = new Owner();
+				owner.setOwnerId(resultSet.getInt("owner_id"));
+				owner.setOwnerName(resultSet.getString("owner_name"));
+				owner.setOwnerAge(resultSet.getInt("owner_age"));
+				owner.setOwnerGender(resultSet.getString("owner_gender"));;
+				owner.setOwnerAddress(resultSet.getString("owner_address"));
+				owner.setOwnerEmail(resultSet.getString("owner_email"));
+				owner.setOwnerPhone(resultSet.getString("owner_phone"));
+				owner.setOwnerDob(resultSet.getDate("owner_dob"));
+				owner.setDogId(resultSet.getInt("dog_id"));
+				owner.setProductId(resultSet.getInt("product_id"));
+				ownersList.add(owner);
+			}
+			if(ownersList.size() == 0) {
+				throw new BusinessException("No owners found with the gender: " + ownerGender);
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			System.out.println(e);
+			throw new BusinessException("Internal error occured contact SYSADMIN");
+		}
+		
+		
+		return ownersList;
 	}
 
 	@Override
@@ -160,14 +216,70 @@ public class OwnerSearchDAOImpl implements OwnerSearchDAO {
 
 	@Override
 	public List<Owner> getOwnersByName(String ownerName) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Owner> ownersList= new ArrayList<>();
+		try (Connection connection = PostgresqlConnection.getConnection()) {
+			String sql = "SELECT owner_id, owner_name, owner_age, owner_gender, owner_address, owner_email, owner_phone, owner_dob, dog_id, product_id FROM test01.dog_owner WHERE owner_name = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, ownerName);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				Owner owner = new Owner();
+				owner.setOwnerId(resultSet.getInt("owner_id"));
+				owner.setOwnerName(resultSet.getString("owner_name"));
+				owner.setOwnerAge(resultSet.getInt("owner_age"));
+				owner.setOwnerGender(resultSet.getString("owner_gender"));;
+				owner.setOwnerAddress(resultSet.getString("owner_address"));
+				owner.setOwnerEmail(resultSet.getString("owner_email"));
+				owner.setOwnerPhone(resultSet.getString("owner_phone"));
+				owner.setOwnerDob(resultSet.getDate("owner_dob"));
+				owner.setDogId(resultSet.getInt("dog_id"));
+				owner.setProductId(resultSet.getInt("product_id"));
+				ownersList.add(owner);
+			}
+			if(ownersList.size() == 0) {
+				throw new BusinessException("No owners found with the name: " + ownerName);
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			System.out.println(e);
+			throw new BusinessException("Internal error occured contact SYSADMIN");
+		}
+		
+		
+		return ownersList;
 	}
 
 	@Override
-	public List<Owner> getOwnerByDob(String ownerDob) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Owner> getOwnersByDob(Date ownerDob) throws BusinessException {
+		List<Owner> ownersList= new ArrayList<>();
+		try (Connection connection = PostgresqlConnection.getConnection()) {
+			String sql = "SELECT owner_id, owner_name, owner_age, owner_gender, owner_address, owner_email, owner_phone, owner_dob, dog_id, product_id FROM test01.dog_owner WHERE owner_dob = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setDate(1, ownerDob);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				Owner owner = new Owner();
+				owner.setOwnerId(resultSet.getInt("owner_id"));
+				owner.setOwnerName(resultSet.getString("owner_name"));
+				owner.setOwnerAge(resultSet.getInt("owner_age"));
+				owner.setOwnerGender(resultSet.getString("owner_gender"));;
+				owner.setOwnerAddress(resultSet.getString("owner_address"));
+				owner.setOwnerEmail(resultSet.getString("owner_email"));
+				owner.setOwnerPhone(resultSet.getString("owner_phone"));
+				owner.setOwnerDob(resultSet.getDate("owner_dob"));
+				owner.setDogId(resultSet.getInt("dog_id"));
+				owner.setProductId(resultSet.getInt("product_id"));
+				ownersList.add(owner);
+			}
+			if(ownersList.size() == 0) {
+				throw new BusinessException("No owners found with the Birthdate: " + ownerDob);
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			System.out.println(e);
+			throw new BusinessException("Internal error occured contact SYSADMIN");
+		}
+		
+		
+		return ownersList;
 	}
 
 }

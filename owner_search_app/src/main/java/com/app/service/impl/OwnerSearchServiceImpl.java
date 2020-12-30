@@ -1,5 +1,8 @@
 package com.app.service.impl;
 
+
+import java.sql.Date;
+import java.text.DateFormat;
 import java.util.List;
 
 import com.app.dao.OwnerSearchDAO;
@@ -24,8 +27,13 @@ public class OwnerSearchServiceImpl implements OwnerSearchService {
 
 	@Override
 	public Owner getOwnerByContact(String ownerPhone) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		Owner owner = null;
+		if(ownerPhone.matches("[0-9]{3}-[0-9]{3}-[0-9]{4}")) {
+			owner = ownerSearchDAO.getOwnerByContact(ownerPhone);		} //service layer calls DAO layer
+		else {
+			throw new BusinessException("The contact number " + ownerPhone + " is invalid");
+		}
+		return owner;
 	}
 
 	@Override
@@ -48,8 +56,13 @@ public class OwnerSearchServiceImpl implements OwnerSearchService {
 
 	@Override
 	public List<Owner> getOwnersByGender(String ownerGender) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Owner> genderOwnersList = null;
+		if(ownerGender.matches("F|M|O")) {
+			genderOwnersList = ownerSearchDAO.getOwnersByGender(ownerGender);		}
+		else {
+			throw new BusinessException("The gender " + ownerGender + " is invalid");
+		}
+		return genderOwnersList;
 	}
 
 	@Override
@@ -65,14 +78,25 @@ public class OwnerSearchServiceImpl implements OwnerSearchService {
 
 	@Override
 	public List<Owner> getOwnersByName(String ownerName) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Owner> nameOwnersList = null; //Instantiate default for a return method first
+		if(ownerName.matches("^[\\p{L} .'-]+$")) { //then consider loops for validating inputs that are in the correct data type & found in Stackoverflow
+			nameOwnersList = ownerSearchDAO.getOwnersByName(ownerName);		}
+		else {
+			throw new BusinessException("The name " + ownerName + " is invalid");
+		}
+		return nameOwnersList;
 	}
 
 	@Override
-	public List<Owner> getOwnerByDob(String ownerDob) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Owner> getOwnersByDob(Date ownerDob) throws BusinessException {
+		List<Owner> dobOwnersList = null;
+		//DateFormat dFormat = DateFormat.getDateInstance();//Attempt to make the Date lenient to calendar
+		if(ownerDob != null) {
+			dobOwnersList = ownerSearchDAO.getOwnersByDob(ownerDob);		}
+		else {
+			throw new BusinessException("The Birthdate " + ownerDob + " is invalid");
+		}
+		return dobOwnersList;
 	}
 
 }

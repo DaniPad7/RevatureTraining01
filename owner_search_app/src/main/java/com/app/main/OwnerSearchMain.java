@@ -1,5 +1,7 @@
 package com.app.main;
 
+
+import java.sql.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -50,7 +52,18 @@ public class OwnerSearchMain {
 					}
 				break;
 			case 2: 
-				System.out.println("Thank you for your interest in this option but it is still under construction.");
+				System.out.println("Please enter the contact number of the Owner ");
+				String ownerPhone = sc.nextLine();
+				try {
+					Owner owner = ownerSearchService.getOwnerByContact(ownerPhone);
+					if(owner != null) {
+						System.out.println("Owner with the contact number " + ownerPhone + " has the following details: ");
+						System.out.println(owner);
+					}
+				} catch (BusinessException e) {
+					System.out.println(e.getMessage());
+					System.out.println("Please try the format 000-000-0000");
+				}				
 				break;
 			case 3: 
 				try {
@@ -71,12 +84,25 @@ public class OwnerSearchMain {
 				}
 				break;
 			case 4: 
-				System.out.println("Thank you for your interest in this option but it is still under construction.");
+				try {
+					System.out.println("Please enter the gender of the Owner: ");
+					String ownerGender = sc.nextLine();
+					List<Owner> genderOwnersList = ownerSearchService.getOwnersByGender(ownerGender);
+					if(genderOwnersList != null && genderOwnersList.size() > 0) {
+						System.out.println("There are " + genderOwnersList.size() + " Owners that are of the" + ownerGender + " gender. Here are the details: ");
+						for(Owner o : genderOwnersList) {
+							System.out.println(o);
+						}
+					}
+				} catch (BusinessException e) {
+					System.out.println(e.getMessage());
+					System.out.println("Try 'F' for Female \n--'M' for Male \n--'O' for Other");
+				}
 				break;
 			case 5: 
 				System.out.println("Enter Dog ID to find the respective Owners: ");
-				int dogId = Integer.parseInt(sc.nextLine());
 				try {
+					int dogId = Integer.parseInt(sc.nextLine());
 					List<Owner> dogOwnersList = ownerSearchService.getOwnersByDogId(dogId);
 					if(dogOwnersList != null && dogOwnersList.size() > 0) {
 						System.out.println("There are " + dogOwnersList.size() + " Owners that own this dog breed. Here are the details: ");
@@ -84,15 +110,48 @@ public class OwnerSearchMain {
 							System.out.println(o);
 						}
 					}
-				} catch (BusinessException e) {
+				} catch(NumberFormatException e) {
+					System.out.println("Dog ID is a numeric value. Please try again");
+				}
+				catch (BusinessException e) {
 					System.out.println(e.getMessage());
 				}
 				break;
 			case 6: 
-				System.out.println("Thank you for your interest in this option but it is still under construction.");
+				System.out.println("Please enter a birthdate: ");
+				try {
+					Date ownerDob = Date.valueOf(sc.nextLine());
+					List<Owner> dobOwnersList;
+					dobOwnersList = ownerSearchService.getOwnersByDob(ownerDob);//Validation layer occurs here
+					if(dobOwnersList != null && dobOwnersList.size() > 0) {
+						System.out.println("There are " + dobOwnersList.size() + " Owners with this birthdate. Here are the details: ");
+						for(Owner o : dobOwnersList) {
+							System.out.println(o);
+						}
+					}} catch(IllegalArgumentException e) {
+						System.out.println("Try using the format 'yyyy-[m]m-[d]d' again");
+					}catch (BusinessException e) {
+						System.out.println(e.getMessage());
+					}
+					
 				break;
 			case 7: 
-				System.out.println("Thank you for your interest in this option but it is still under construction.");
+				System.out.println("Please enter a First and Last name: ");
+				
+				try {
+					String ownerName = sc.nextLine();
+					List<Owner> nameOwnersList;
+					nameOwnersList = ownerSearchService.getOwnersByName(ownerName);
+					if(nameOwnersList != null && nameOwnersList.size() > 0) {
+						System.out.println("There are " + nameOwnersList.size() + " Owners with this name. Here are the details: ");
+						for(Owner o : nameOwnersList) {
+							System.out.println(o);
+						}
+					}
+				} catch (BusinessException e) { //Only one catch because scanner returns a String by default
+					System.out.println("Try 'First Name' 'Last Name'");
+					System.out.println(e.getMessage());
+				}
 				break;
 			case 8: 
 				System.out.println("Retrieving all of the Owners: ");
