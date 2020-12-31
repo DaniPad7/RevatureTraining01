@@ -1,10 +1,14 @@
 package Day04_Week_01_Objects;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Day_04_Week01 {
 	public static void main(String[] args) {
@@ -87,6 +91,9 @@ public class Day_04_Week01 {
 		ar1.add(7);
 		ar1.add(8);
 		ar1.add(9);
+		ar1.add(22);
+		ar1.add(15);
+		
 		
 		//Reverse order
 		Collections.reverse(ar1);//import Collections package java.util
@@ -96,28 +103,51 @@ public class Day_04_Week01 {
 		ar1.remove(3);
 		System.out.println(ar1);
 		
-		//Place odds and evens in their own arrays.
+		//Place odds and evens in their own arrays. Utilize stream
 		List<Integer> arEven = new  LinkedList<>();
+		arEven = ar1.stream().filter(e -> e % 2 == 0).collect(Collectors.toList());
+		System.out.println(arEven);
+		
 		List<Integer> arOdd = new LinkedList<>();
-		//arEven =  ar1.listIterator().next().divideUnsigned(ar1.indexOf(), 2);
+		arOdd = ar1.stream().filter(e -> e % 2 != 0).collect(Collectors.toList());
+		System.out.println(arOdd);
 		
-			
 		
-		
-		ar1.listIterator().next();
 		//Find the sum of all even and odd numbers seperately and print the max out of it.(max of sum of even vs odd)
-		int ar1Max = Integer.MAX_VALUE;
-		System.out.println(ar1Max);
+		int sumEven;
+		int sumOdd;
+		
+		sumEven = arEven.stream().collect(Collectors.summingInt(e -> e));
+		sumOdd = arOdd.stream().collect(Collectors.summingInt(e -> e));
+		
+		if(Integer.compare(sumEven, sumOdd) < 0)  {
+			System.out.println("The maximum sum is " + sumOdd + " from the Odd List");
+		}
+		else if (Integer.compare(sumEven, sumOdd) == 0) {
+			System.out.println("Both Even and Odd Lists have the Max sum of " + sumOdd);
+		}
+		else {
+			System.out.println("The max is " + sumEven + " from the Even List");
+		}
 		
 		//Find the minimum and the maximum element in an array
-	//	Integer arEvenMax = arEven.listIterator().next().divideUnsigned(dividend, divisor);
-		System.out.println(ar1Max);
+		System.out.println("The Max element is " + Collections.max(ar1));
+		System.out.println("The Min element is " + Collections.min(ar1));
 		
-		//Find all Palindrome numbers in an array 
-		
+		//Find all Palindrome numbers in an array
+		List<Integer> arPalindrome = new LinkedList<>();
+		for(Integer i : ar1) {
+			StringBuffer stringBuffer = new StringBuffer(String.valueOf(i));
+			if (stringBuffer.reverse().toString().equalsIgnoreCase(String.valueOf(i))) {
+				arPalindrome.add(i);
+			}
+			
+		}
+		System.out.println("Paindrome numbers are: " + arPalindrome);
 		
 	}
 	//Task3)Explore Queue Interface and try implementing Queue using LinkedList and PriorityQueue, and get the difference between them java_examples\list_demos\src\eg1\Demo1.java
-Queue <Integer> ar4 = new LinkedList<Integer>();
-PriorityQueue <Float> ar5 = new PriorityQueue<Float>();
+Queue <Integer> ar4 = new LinkedList<>();
+Queue <Float> ar5 = new PriorityQueue<>();
+
 }
