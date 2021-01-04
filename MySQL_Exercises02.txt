@@ -1,0 +1,319 @@
+USE sql_store;
+
+SELECT *
+FROM customers
+-- WHERE customer_id = 1
+ORDER BY first_name;
+
+SELECT 
+last_name, 
+first_name, 
+points, 
+(points + 10) * 100 AS 'discount factor'
+FROM customers;
+
+SELECT DISTINCT state
+FROM customers;
+
+SELECT 
+name, 
+unit_price, 
+(unit_price * 1.1) AS new_price
+FROM products;
+
+SELECT *
+FROM customers
+WHERE NOT (birth_date > '1990-01-01' OR 
+(points > 1000));
+
+SELECT *
+FROM orders
+WHERE order_date > '2019-01-01';
+
+SELECT *
+FROM order_items
+WHERE order_id = 6 AND (unit_price * quantity > 30);
+
+SELECT *
+FROM customers 
+WHERE state NOT IN ('VA', 'GA', 'FL');
+
+SELECT *
+FROM products
+WHERE quantity_in_stock IN (49, 38, 72);
+
+SELECT *
+FROM customers
+WHERE points BETWEEN 1000 AND 3000;
+
+SELECT *
+FROM customers
+WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01';
+
+SELECT *
+FROM customers
+WHERE last_name LIKE 'b____y';
+
+SELECT *
+FROM customers
+WHERE address LIKE '%trail%' OR 
+address LIKE '%avenue%' OR
+phone NOT LIKE '%9';
+
+SELECT *
+FROM customers
+WHERE last_name REGEXP '[a-h]e';
+-- ^beginning
+-- $ ending in
+-- |logical or
+-- [abcd]
+-- [a-f]
+
+SELECT *
+FROM customers
+WHERE first_name REGEXP 'elka|amber' OR
+last_name REGEXP 'ey$|on$' OR
+last_name REGEXP '^my|se' OR
+last_name REGEXP 'b[ru]';
+
+SELECT *
+FROM customers
+WHERE phone IS NOT NULL;
+
+SELECT *
+FROM orders
+WHERE shipped_date IS NULL;
+
+SELECT *
+FROM customers
+ORDER BY state DESC, first_name DESC;
+
+SELECT *, quantity * unit_price AS total_price
+FROM order_items
+WHERE order_id = 2
+ORDER BY total_price DESC;
+
+SELECT *
+FROM customers 
+LIMIT 6, 3;
+-- page 1: 1-3
+-- page 2: 4-6
+-- page 3: 7-9
+
+SELECT *
+FROM customers
+ORDER BY points DESC
+LIMIT 3
+
+USE sql_hr;
+
+SELECT e.employee_id, e.first_name, m.first_name AS manager
+FROM employees e
+JOIN employees m
+ON e.reports_to = m.employee_id;
+
+USE sql_store;
+
+SELECT o.order_id, o.order_date, c.first_name, c.last_name, os.name AS status
+FROM orders o
+JOIN customers c
+ON o.customer_id = c.customer_id
+JOIN order_statuses os
+ON o.status = os.order_status_id;
+
+USE sql_invoicing;
+
+SELECT p.date, p.invoice_id, p.amount, c.name, pm.name
+FROM payments p
+JOIN clients c
+ON p.client_id = c.client_id
+JOIN payment_methods pm
+ON p.payment_method = pm.payment_method_id;
+
+USE sql_store;
+
+SELECT *
+FROM order_items oi
+JOIN order_item_notes oin
+ON oi.order_id = oin.order_id
+AND oi.product_id = oin.product_id;
+
+SELECT c.customer_id, c.first_name, o.order_id, sh.name AS shipper
+FROM orders o
+RIGHT JOIN customers c
+ON c.customer_id = o.customer_id
+LEFT JOIN shippers sh
+ON o.shipper_id = sh.shipper_id
+ORDER BY c.customer_id;
+
+SELECT p.product_id, p.name, oi.quantity
+FROM products p
+LEFT JOIN order_items oi
+ON p.product_id = oi.product_id;
+
+SELECT o.order_id, o.order_date, c.first_name AS customer, sh.name AS shipper, os.name AS status
+FROM orders o
+JOIN customers c
+ON o.customer_id = c.customer_id
+LEFT JOIN shippers sh
+ON o.shipper_id  = sh.shipper_id
+JOIN order_statuses os
+ON o.status = os.order_status_id;
+
+USE sql_hr;
+
+SELECT e.employee_id, e.first_name, m.first_name AS manager
+FROM employees e
+LEFT JOIN employees m
+ON e.reports_to = m.employee_id;
+
+USE sql_store;
+
+SELECT o.order_id, c.first_name, sh.name AS shipper
+FROM orders o
+JOIN customers c
+-- ON o.customer_id = c.customer_id
+USING (customer_id)
+LEFT JOIN shippers sh
+USING (shipper_id);
+
+SELECT *
+FROM order_items oi
+JOIN order_item_notes oin
+USING (order_id, product_id);
+
+USE sql_invoicing;
+
+SELECT p.date, c.name AS client, p.amount, pm.name AS payment_method
+FROM payments p
+JOIN clients c 
+USING (client_id)
+JOIN payment_methods pm
+ON p.payment_method = pm.payment_method_id;
+
+USE sql_store;
+
+SELECT o.order_id, c.first_name
+FROM orders o
+NATURAL JOIN customers c;
+
+SELECT c.first_name AS customer, p.name AS product
+FROM customers c, orders o
+ORDER BY c.first_name;
+
+SELECT *
+FROM products p, shippers sh
+ORDER BY product_id;
+
+SELECT *
+FROM products p
+CROSS JOIN shippers sh
+ORDER BY product_id;
+
+SELECT order_id, order_date, 'Active' AS status
+FROM orders o
+WHERE order_date >= '2019-01-01'
+UNION
+SELECT order_id, order_date, 'Archived' AS status
+FROM orders o
+WHERE order_date < '2019-01-01';
+
+SELECT name AS full_name
+FROM shippers
+UNION
+SELECT first_name
+FROM customers;
+
+SELECT customer_id, first_name, points, 'Bronze' AS type
+FROM customers
+WHERE points < 2000
+UNION
+SELECT customer_id, first_name, points, 'Silver' AS type
+FROM customers
+WHERE points BETWEEN 2000 AND 3000
+UNION
+SELECT customer_id, first_name, points, 'Gold' AS type
+FROM customers
+WHERE points > 3000
+ORDER BY first_name
+
+SELECT * FROM sql_store.orders;
+
+SELECT order_id, o.customer_id, first_name, last_name
+FROM orders o
+JOIN customers c
+ON o.customer_id = c.customer_id;
+
+-- Implicit Join Syntax
+SELECT *
+FROM orders o, customers c
+WHERE o.customer_id = c.customer_id;
+
+SELECT oi.order_id, oi.product_id, quantity, oi.unit_price
+FROM order_items oi
+JOIN products p 
+ON oi.product_id = p.product_id;
+
+SELECT *
+FROM order_items oi
+JOIN sql_inventory.products p
+ON oi.product_id = p.product_id;
+
+INSERT INTO sql_store.customers ( last_name, first_name, birth_date, address, city, state)
+VALUES( 'Smith', 'John', '1990-01-01', 'address', 'city', 'CA');
+
+INSERT INTO sql_store.shippers (name)
+VALUES ('Shipper1'),('Shipper2'),('Shipper3');
+
+INSERT INTO sql_store.products (name, quantity_in_stock, unit_price)
+VALUES ('Product1', 10, 1.95),('Product2', 10, 1.95),('Product3', 10, 1.95);
+-- Hierarchal insertions
+INSERT INTO sql_store.orders (customer_id, order_date, status)
+VALUES (1, '2019-01-02', 1);
+
+INSERT INTO sql_store.order_items
+VALUES (LAST_INSERT_ID(), 1, 1, 2.95), (LAST_INSERT_ID(), 2, 1, 3.95);
+
+SElECT LAST_INSERT_ID();
+
+CREATE TABLE sql_store.orders_archived AS
+SELECT * FROM sql_store.orders;
+
+INSERT INTO sql_store.orders_archived
+SELECT * FROM sql_store.orders
+WHERE order_date < '2019-01-01';
+
+USE sql_invoicing;
+CREATE TABLE invoices_archived AS
+SELECT i.invoice_id, i.number, c.name AS client, i.invoice_total, i.payment_total, i.invoice_date, i.payment_date, i.due_date 
+FROM invoices i
+JOIN clients c
+USING(client_id)
+WHERE payment_date IS NOT NULL;
+
+UPDATE invoices
+SET payment_total = invoice_total * 0.5, payment_date = due_date
+WHERE client_id IN 
+		(SELECT client_id
+		FROM clients
+		WHERE state IN ('CA', 'NY'));
+
+USE sql_store;
+
+UPDATE customers
+SET points = points + 50
+WHERE birth_date < '1990-01-01';
+
+UPDATE orders
+SET comments = 'Gold customer'
+WHERE customer_id IN
+		(SELECT customer_id
+        FROM customers
+		WHERE points > 3000);
+
+USE sql_invoicing;
+DELETE FROM invoices
+WHERE client_id = 
+	(SELECT client_id
+	FROM clients
+	WHERE name = 'Myworks');
