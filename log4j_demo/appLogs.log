@@ -1,0 +1,10 @@
+{INFO} Hello from INFO 2021-Jan-06 Wednesday PST 00:28:16 
+{WARN} Hello from WARN 2021-Jan-06 Wednesday PST 00:28:16 
+{ERROR} Hello from ERROR 2021-Jan-06 Wednesday PST 00:28:16 
+{FATAL} Hello from FATAL 2021-Jan-06 Wednesday PST 00:28:16 
+{INFO} Hello and goodbye from log service helloLog() 2021-Jan-06 Wednesday PST 00:28:16 
+{INFO} Hello from INFO 2021-Jan-06 Wednesday PST 00:35:00 
+{WARN} Hello from WARN 2021-Jan-06 Wednesday PST 00:35:00 
+{ERROR} Hello from ERROR 2021-Jan-06 Wednesday PST 00:35:00 
+{FATAL} Hello from FATAL 2021-Jan-06 Wednesday PST 00:35:00 
+{INFO} Hello and goodbye from log service helloLog() 2021-Jan-06 Wednesday PST 00:35:00 
